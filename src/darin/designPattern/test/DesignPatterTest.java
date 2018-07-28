@@ -4,6 +4,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import darin.designPattern.AbstractFactory.DataAccess;
+import darin.designPattern.AbstractFactory.IUser;
+import darin.designPattern.AbstractFactory.User;
+import darin.designPattern.Builder.BuildLeader;
+import darin.designPattern.Builder.PersonBuilder;
+import darin.designPattern.Builder.PersonBuilderOne;
+import darin.designPattern.Builder.PersonBuilderTwo;
+import darin.designPattern.Facade.Facade;
 import darin.designPattern.Template.AbstractClass;
 import darin.designPattern.Template.ConcreteClassA;
 import darin.designPattern.Template.ConcreteClassB;
@@ -14,6 +22,8 @@ import darin.designPattern.decorator.DecoratorA;
 import darin.designPattern.decorator.DecoratorB;
 import darin.designPattern.factory.Operation;
 import darin.designPattern.factory.OperationFactory;
+import darin.designPattern.observer.ConcreteObserver;
+import darin.designPattern.observer.ConcreteSubject;
 import darin.designPattern.prototype.Resume;
 import darin.designPattern.proxy.Proxy;
 import darin.designPattern.proxy.Pursuit;
@@ -86,9 +96,48 @@ public class DesignPatterTest {
 		AbstractClass  b = new ConcreteClassB();
 		b.TemplateMethod();
 	}
+	
+	@Test
+	public void testFacade() {
+		Facade facade = new Facade();
+		facade.MethodA();
+		
+		facade.MethodB();
+	}
+	@Test
+	public void testBuilder() {
+		PersonBuilder personOne = new PersonBuilderOne();
+		BuildLeader leader = new BuildLeader(personOne);
+		leader.CreatePerson();
+		
+		PersonBuilder personTwo = new PersonBuilderTwo();
+		BuildLeader leaderTwo = new BuildLeader(personTwo);
+		leaderTwo.CreatePerson();
+	}
+	@Test
+	public void testObserver() {
+		ConcreteSubject subject = new ConcreteSubject();
+		subject.attach(new ConcreteObserver("1",subject));
+		subject.attach(new ConcreteObserver("2",subject));
+		subject.attach(new ConcreteObserver("2",subject));
+		subject.setSubjectState("ABC");
+		subject.nodify();
+	}
+	@Test
+	public void testAbstractFactory() {
+		/*DataAccess dataAccess = new DataAccess();*/
+		IUser iUser = DataAccess.createUserRef();
+		iUser.getUser(0);
+		User user = new User();
+		iUser.insert(user);
+	}
+	
 	@After
 	public void testFinish() {
 		System.out.println("Start finish");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
 	}
 
 }
