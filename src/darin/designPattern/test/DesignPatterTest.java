@@ -4,6 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.darin.proxy.InvocationHandler;
+import com.darin.proxy.usertest.TransactionHandler;
+import com.darin.proxy.usertest.UserMrg;
+import com.darin.proxy.usertest.UserMrgImpl;
+
 import darin.designPattern.AbstractFactory.DataAccess;
 import darin.designPattern.AbstractFactory.IUser;
 import darin.designPattern.AbstractFactory.User;
@@ -131,13 +136,24 @@ public class DesignPatterTest {
 		User user = new User();
 		iUser.insert(user);
 	}
+	@Test
+	public void testProxy2() {
+		UserMrg mgr = new UserMrgImpl();
+		InvocationHandler h = new TransactionHandler(mgr);
+		UserMrg u;
+		try {
+			u = (UserMrg)com.darin.proxy.Proxy.newProxyInstance(UserMrg.class,h);
+			u.addUser();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@After
 	public void testFinish() {
 		System.out.println("Start finish");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
 	}
 
 }
