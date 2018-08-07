@@ -14,6 +14,8 @@ import com.darin.iterator.Cat;
 import com.darin.iterator.Collection;
 import com.darin.iterator.Iterator;
 import com.darin.iterator.LinkedList;
+import com.darin.strategy.DataSorted;
+import com.darin.strategy.Dog;
 
 public class Test2 {
 	@Before
@@ -62,6 +64,13 @@ public class Test2 {
 			System.out.println(iterator.next().toString());
 		}
 	}
+	@Test
+	public void testStrategy() {
+		Dog[] dogs = {new Dog(1,1),new Dog(2,5),new Dog(3,3)};
+		DataSorted.sort(dogs);
+		DataSorted.p(dogs);
+	}
+	
 	@After
 	public void afterTest(){
 		System.out.println("end test");
