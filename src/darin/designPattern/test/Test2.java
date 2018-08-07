@@ -14,6 +14,9 @@ import com.darin.iterator.Cat;
 import com.darin.iterator.Collection;
 import com.darin.iterator.Iterator;
 import com.darin.iterator.LinkedList;
+import com.darin.springfactory.BeanFactory;
+import com.darin.springfactory.ClassPathXmlApplicationContext;
+import com.darin.springfactory.Moveable;
 import com.darin.strategy.DataSorted;
 import com.darin.strategy.Dog;
 
@@ -69,6 +72,13 @@ public class Test2 {
 		Dog[] dogs = {new Dog(1,1),new Dog(2,5),new Dog(3,3)};
 		DataSorted.sort(dogs);
 		DataSorted.p(dogs);
+	}
+	@Test
+	public void testFactory() throws Exception {
+		BeanFactory f = new ClassPathXmlApplicationContext("com/darin/springfactory/applicationContext.xml");
+		Object o = f.getBean("v");
+		Moveable m = (Moveable)o;
+		m.run();
 	}
 	
 	@After
